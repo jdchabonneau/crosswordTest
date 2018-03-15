@@ -25,12 +25,29 @@ function insertInputs(container, numOfInputs) {
         let newInput = document.createElement('input');
         newInput.id = 'input'+i;
         newInput.className = 'light';
-        newInput.addEventListener('click', handleClick);
+        newInput.addEventListener('click', toggleColor);
         container.appendChild(newInput);
     }
 }
 
-function handleClick() {
+function decideNumber() {
+    let inputVal = 0;
+    let nextNumb = 1;
+    for(let row = 0; row<rowNumb; row++) {
+        for(let col=0; col<colNumb; col++) {
+            let insertInput = 'input'+inputVal++;
+            let inputID = document.getElementById(insertInput);
+            inputID.placeholder='';
+            if(inputID.className !== 'dark') {
+                if(col === 0) {
+                    inputID.placeholder=nextNumb++;
+                }
+            }
+        }
+    }
+}
+
+function toggleColor() {
     if (designActive) {
         designMode(this);
     }
@@ -55,4 +72,8 @@ function updateGrid() {
     colNumb = col;
     rowNumb = row;
     createGrid();
+}
+
+function clickHandle() {
+    decideNumber();
 }
